@@ -29,13 +29,10 @@ define freebsd::vlan (
     }
 
     if $v6address != '' {
-      if $prefixlen == '' {
-        fail('when setting a v6address on an interface, you must also specify the prefixlen')
-      }
       shell_config { "subnet_vlan_${name}_${ifname}_ipv6":
         file  => '/etc/rc.conf',
         key   => "ifconfig_${ifname}_ipv6",
-        value => "inet6 ${address} prefixlen ${prefixlen}",
+        value => "inet6 ${v6address}",
       }
     }
 
