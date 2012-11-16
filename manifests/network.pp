@@ -13,12 +13,24 @@ class freebsd::network (
       key   => 'gateway_enable',
       value => "YES",
     }
+  } else {
+    shell_config { "gateway_enable":
+      ensure => absent,
+      key    => 'gateway_enable',
+      value  => "YES",
+    }
   }
 
   if $ipv6_enable {
     shell_config { "ipv6_enable":
       key   => 'ipv6_enable',
       value => "YES",
+    }
+  } else {
+    shell_config { "ipv6_enable":
+      ensure => absent,
+      key    => 'ipv6_enable',
+      value  => "YES",
     }
   }
 
@@ -27,6 +39,12 @@ class freebsd::network (
       key   => 'ipv6_gateway_enable',
       value => "YES",
     }
+  } else {
+    shell_config { "ipv6_gateway_enable":
+      ensure => absent,
+      key    => 'ipv6_gateway_enable',
+      value  => "YES",
+    }
   }
 
   if $defaultrouter != '' {
@@ -34,12 +52,24 @@ class freebsd::network (
       key   => 'defaultrouter',
       value => "${defaultrouter}",
     }
+  } else {
+    shell_config { "defaultrouter":
+      ensure => absent,
+      key    => 'defaultrouter',
+      value  => "${defaultrouter}",
+    }
   }
 
   if $ipv6_defaultrouter {
     shell_config { "ipv6_defaultrouter":
       key   => 'ipv6_defaultrouter',
       value => "${ipv6_defaultrouter}",
+    }
+  } else {
+    shell_config { "ipv6_defaultrouter":
+      ensure => absent,
+      key    => 'ipv6_defaultrouter',
+      value  => "${ipv6_defaultrouter}",
     }
   }
 
