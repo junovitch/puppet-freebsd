@@ -4,13 +4,16 @@ define freebsd::network::lagg (
   $mtu = ''
 ) {
 
+  # Set the MTU of the LAGG interface.
   if ($mtu != '') {
     os::freebsd::network::interface { $laggports: mtu => $mtu; }
   }
 
+  # Build up the lagg interface string here for simplicity
   $lagg_string = inline_template("laggproto ${laggproto} laggport <%= laggports.join(' laggport ') %> up")
 
-  shell_config { "lagg0_up":
+  # Add the ifconfig line to rc.conf
+  shell_config { "configure_lagg_${name}":
     file  => '/etc/rc.conf',
     key   => "ifconfig_${name}",
     value => "${lagg_string}"

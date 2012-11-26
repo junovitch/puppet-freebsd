@@ -7,36 +7,44 @@ define freebsd::vlan (
   $ensure = 'present'
 ){
 
+  # Set the interface name to be used in rc.conf
   $ifname = "vlan${vlan}"
 
   # We should take the correct action
   if ($ensure == 'present') {
 
-    # FIXME: when createing the vlan interface, the vlan paramaters can only be
-    # specified once, so here we are determining of we need to create a v6 and
-    # a v4 address, but then we can only set the vlandev on one of the
-    # interfaces.  So this does not allow us to use v6 only at the moment, but
-    # rather, if you want v6, then you also need to specify a v4 address.
-    # There is likely simple fix for this.
-
-    # Add the configuration to rc.conf
+    # Add the v4 ifconfig line to rc.conf if we've set an address.
     if $address != '' {
+      $vlan_string = " vlan ${vlan} vlandev ${dev}"
       shell_config { "subnet_vlan_${name}_${ifname}":
         file  => '/etc/rc.conf',
         key   => "ifconfig_${ifname}",
-        value => "inet ${address} vlan ${vlan} vlandev ${dev}",
+        value => "inet ${address}${vlan_string}",
       }
     }
 
+    # Add the v6 ifconfig line to rc.conf if we've set an address.
     if $v6address != '' {
+      # If we have not set a v4 address, then we need to configure the vlan on
+      # the v6 address.  This is because the vlan information can only be set
+      # once, either on the v4 or the v6 address, but not both.
+      if $address == '' {
+        $vlan_string = " vlan ${vlan} vlandev ${dev}"
+      } else {
+        $vlan_string = ""
+      }
+      # Add the v6 ifconfig line to rc.conf.
       shell_config { "subnet_vlan_${name}_${ifname}_ipv6":
         file  => '/etc/rc.conf',
         key   => "ifconfig_${ifname}_ipv6",
-        value => "inet6 ${v6address}",
-      }
+        value => "inet6 ${v6address}${vlan_string}",
+        }
     }
 
-    # Create the vlan interface
+    # Create the vlan interface.  This is needed because the interface is
+    # virtual, and creation of virtual interfaces is only done on boot trough
+    # the rc variable 'cloned_interfaces'.  As such, if we wish to use it now,
+    # we must create it so that we may do address assignment.
     exec { "create_interface_${name}_${ifname}":
       unless  => "/sbin/ifconfig ${ifname}",
       command => "/sbin/ifconfig ${ifname} create",
@@ -44,13 +52,16 @@ define freebsd::vlan (
       require => Shell_config["subnet_vlan_${name}_${ifname}"],
     }
 
-    # Start the vlan interface
+    # Start the vlan interface.  This does the actuall address assignment.
+    # Running netif start on an interface reads the configuration from rc.conf
+    # and proceed accordingly.
     exec { "start_vlan_${name}_${ifname}":
       refreshonly => true,
       command     => "/usr/sbin/service netif start ${ifname}",
       require     => Exec["create_interface_${name}_${ifname}"],
     }
 
+  } elsif ($ensure == 'absent'){
   }
 
 }
