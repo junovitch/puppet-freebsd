@@ -29,15 +29,15 @@ define freebsd::vlan (
       # the v6 address.  This is because the vlan information can only be set
       # once, either on the v4 or the v6 address, but not both.
       if $address == '' {
-        $vlan_string = " vlan ${vlan} vlandev ${dev}"
+        $v6_vlan_string = " vlan ${vlan} vlandev ${dev}"
       } else {
-        $vlan_string = ""
+        $v6_vlan_string = ""
       }
       # Add the v6 ifconfig line to rc.conf.
       shell_config { "subnet_vlan_${name}_${ifname}_ipv6":
         file  => '/etc/rc.conf',
         key   => "ifconfig_${ifname}_ipv6",
-        value => "inet6 ${v6address}${vlan_string}",
+        value => "inet6 ${v6address}${v6_vlan_string}",
         }
     }
 
