@@ -24,7 +24,7 @@
 
 
 default:\
-  <% default.to_h.each_key do |k| -%>
+  <% default.to_hash.each_key do |k| -%>
     <%= "\t:#{k}=#{default[k]}:\\\n" %>
   <% end -%>
 
