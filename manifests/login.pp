@@ -28,7 +28,7 @@ class freebsd::login (
   file { '/etc/login.conf':
     path    => '/etc/login.conf',
     owner   => 'root',
-    group   => '0'
+    group   => '0',
     mode    => '0644',
     content => template('freebsd/etc/login.conf.erb'),
     notify  => Exec['update login database'],
