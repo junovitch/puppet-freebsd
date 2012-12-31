@@ -31,7 +31,7 @@ class freebsd::login (
     group   => '0',
     mode    => '0644',
     content => template('freebsd/etc/login.conf.erb'),
-    notify  => Exec['update login database'],
+    notify  => Exec['update_login_database'],
   }
 
   exec{ 'update_login_database':
