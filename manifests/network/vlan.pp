@@ -1,4 +1,4 @@
-define freebsd::vlan (
+define freebsd::network::vlan (
   $address   = '',  # CIDR Notation
   $v6address = '',  # Address only
   $prefixlen = '',  # Prefix length for v6 address
