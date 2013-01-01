@@ -2,7 +2,7 @@ define freebsd::kernel (
   $options = {}
 ){
 
-  include src
+  include freebsd::src
 
   $kernelname = inline_template("<%= name.upcase %>")
 
