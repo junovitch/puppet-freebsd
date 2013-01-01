@@ -1,9 +1,9 @@
 class freebsd::login (
   $default = {
-    'passwd_format'   => 'md5',
-    'copyrighta'       => '/etc/COPYRIGHT',
+    'passwd_format'   => 'sha512',
+    'copyrighta'      => '/etc/COPYRIGHT',
     'welcome'         => '/etc/motd',
-    'setenv'          => 'MAIL/var/mail/$,BLOCKSIZE=K,FTP_PASSIVE_MODE=YES',
+    'setenv'          => 'MAIL=/var/mail/$,BLOCKSIZE=K',
     'path'            => '/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin ~/bin',
     'nologin'         => '/var/run/nologin',
     'cputime'         => 'unlimited',
