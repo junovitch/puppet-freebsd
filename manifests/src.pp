@@ -1,4 +1,8 @@
-class freebsd::src {
+class freebsd::src (
+  $dir            = '/usr/src',
+  $subversion_ver = '1.7.6',
+  $release        = '9.0.0',
+) {
 
   # The following should probably be broken up into a define(s), but we are
   # only working with amd64 and 9.0 boxes for now, so I am not too worried.
@@ -10,6 +14,7 @@ class freebsd::src {
     require => Package["devel/subversion"],
     creates => '/usr/src/.svn',
     timeout => '1800',
+    require => Package["subversion-${subversion_ver}"],
   }
 
   # Below here lies a bunch of junk that will copy the GENERIC configuration,
