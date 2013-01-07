@@ -4,6 +4,10 @@ define freebsd::network::lagg (
   $mtu = ''
 ) {
 
+  # This code creates the configuration for an LACP bundle interface.  It could
+  # eventually manage the creation and destruction of the interface and its
+  # parameters.
+
   # Set the MTU of the LAGG interface.
   if ($mtu != '') {
     os::freebsd::network::interface { $laggports: mtu => $mtu; }

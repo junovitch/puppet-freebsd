@@ -6,6 +6,10 @@ define freebsd::network::carp (
   $address         # CIDR
 ) {
 
+  # The following adds teh necessary configuration for a carp interface to
+  # rc.conf.  Eventually this could manage the interface creation and
+  # destruction.
+
   # munge the password string for use in the $carp_string if we have set one
   if ( $password != '') {
     $password_string = " pass ${password}"

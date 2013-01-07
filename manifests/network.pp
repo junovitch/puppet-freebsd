@@ -1,3 +1,4 @@
+# Configures various network paramaters on a FreeBSD system.
 class freebsd::network (
   $gateway_enable      = false,
   $ipv6                = true,

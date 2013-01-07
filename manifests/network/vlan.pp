@@ -7,6 +7,8 @@ define freebsd::network::vlan (
   $ensure = 'present'
 ){
 
+  # Manage the configuration of a FreeBSD vLAN interface.
+
   # Set the interface name to be used in rc.conf
   $ifname = "vlan${vlan}"
 
