@@ -1,3 +1,4 @@
+# Class to manage the /etc/login.conf file on FreeBSD.
 class freebsd::login (
   $default = {
     'passwd_format'   => 'sha512',

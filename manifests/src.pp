@@ -3,11 +3,11 @@ class freebsd::src {
   # The following should probably be broken up into a define(s), but we are
   # only working with amd64 and 9.0 boxes for now, so I am not too worried.
 
-  package { "subversion-1.7.6": }
+  package { "devel/subversion": }
 
   exec { "checkout source":
     command => '/usr/local/bin/svn co svn://svn.freebsd.org/base/release/9.0.0/ /usr/src/',
-    require => Package["subversion-1.7.6"],
+    require => Package["devel/subversion"],
     creates => '/usr/src/.svn',
     timeout => '1800',
   }
