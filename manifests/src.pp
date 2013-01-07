@@ -1,6 +1,5 @@
 class freebsd::src (
   $dir            = '/usr/src',
-  $subversion_ver = '1.7.6',
   $release        = '9.0.0',
 ) {
 
@@ -10,11 +9,10 @@ class freebsd::src (
   package { "devel/subversion": }
 
   exec { "checkout source":
-    command => '/usr/local/bin/svn co svn://svn.freebsd.org/base/release/9.0.0/ /usr/src/',
-    require => Package["devel/subversion"],
-    creates => '/usr/src/.svn',
+    command => "/usr/local/bin/svn co svn://svn.freebsd.org/base/release/${release}/ ${dir}/",
+    creates => "${dir}/.svn",
     timeout => '1800',
-    require => Package["subversion-${subversion_ver}"],
+    require => Package["devel/subversion"],
   }
 
   # Below here lies a bunch of junk that will copy the GENERIC configuration,
