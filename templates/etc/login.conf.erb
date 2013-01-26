@@ -24,8 +24,8 @@
 
 
 default:\
-  <% default.to_hash.each_key do |k| -%>
-    <%= "\t:#{k}=#{default[k]}:\\" %>
+  <% default.to_a.each do |k| -%>
+    <%= "\t:#{k}:\\" %>
   <% end -%>
 
 #
