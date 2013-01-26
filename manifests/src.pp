@@ -1,6 +1,6 @@
 class freebsd::src (
   $dir            = '/usr/src',
-  $release        = '9.0.0',
+  $release        = '9.1.0',
 ) {
 
   # The following should probably be broken up into a define(s), but we are
