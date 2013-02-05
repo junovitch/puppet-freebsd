@@ -4,6 +4,7 @@ define freebsd::kernel (
 ){
 
   include freebsd::src
+  include freebsd::kernel::strip
 
   $kernelname = inline_template("<%= name.upcase %>")
 
