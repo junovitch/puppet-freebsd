@@ -1,6 +1,7 @@
 # Creates a kernel configuartion with an ident of $name.
 define freebsd::kernel (
   $options = [],
+  $device  = [],
 ){
 
   include freebsd::src
