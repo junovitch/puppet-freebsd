@@ -1,6 +1,7 @@
 class freebsd::kernel::strip (
   $src_dir  = '/usr/src',
   $conf_dir = '/root/kernels',
+  $arch     = 'amd64',
 ){
 
   include freebsd::src
@@ -10,7 +11,7 @@ class freebsd::kernel::strip (
   }
 
   exec { "strip_generic_kernel_of_its_identity":
-    command => "/usr/bin/grep -v ident ${src_dir}/sys/amd64/conf/GENERIC > ${conf_dir}/GENERIC.stripped",
+    command => "/usr/bin/grep -v ident ${src_dir}/sys/${arch}/conf/GENERIC > ${conf_dir}/GENERIC.stripped",
     require => File[$conf_dir],
     creates => "${conf_dir}/GENERIC.stripped",
   }
