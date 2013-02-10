@@ -8,22 +8,24 @@ define freebsd::kernel (
   include freebsd::kernel::strip
 
   $kernelname = inline_template("<%= name.upcase %>")
+  $src_dir    = $freebsd::kernel::strip::src_dir
+  $conf_dir   = $freebsd::kernel::strip::conf_dir
 
   exec { "copy generic kernel to ${name}":
-    command => "/bin/cp /root/kernels/GENERIC.stripped /root/kernels/${kernelname}",
+    command => "/bin/cp ${conf_dir}/GENERIC.stripped ${conf_dir}/${kernelname}",
     require => Exec["strip generic kernel"],
-    creates => "/root/kernels/${kernelname}",
+    creates => "${conf_dir}/${kernelname}",
   }
 
   file_line { "set kernel ident for ${kernelname}":
-    path    => "/root/kernels/${kernelname}",
+    path    => "${conf_dir}/${kernelname}",
     line    => "ident ${kernelname}",
     require => Exec["copy generic kernel to ${name}"],
   }
 
-  file { "/usr/src/sys/amd64/conf/${kernelname}":
+  file { "${src_dir}/sys/amd64/conf/${kernelname}":
     ensure => link,
-    target => "/root/kernels/${kernelname}",
+    target => "${conf_dir}/${kernelname}",
   }
 
 }
