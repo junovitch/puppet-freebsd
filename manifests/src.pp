@@ -5,10 +5,10 @@ class freebsd::src (
 
   package { "devel/subversion": }
 
-  exec { "checkout source":
+  exec { "checkout kernel source for ${release} on ${architecture}":
     command => "/usr/local/bin/svn co svn://svn.freebsd.org/base/release/${release}/ ${dir}/",
     creates => "${dir}/.svn",
-    timeout => '1800',
+    timeout => '3600',
     require => Package["devel/subversion"],
   }
 }

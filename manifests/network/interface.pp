@@ -65,5 +65,4 @@ define freebsd::network::interface (
     }
 
   }
-
 }

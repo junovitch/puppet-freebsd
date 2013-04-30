@@ -22,5 +22,4 @@ define freebsd::network::lagg (
     key   => "ifconfig_${name}",
     value => "${lagg_string}"
   }
-
 }
