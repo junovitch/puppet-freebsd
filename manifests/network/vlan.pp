@@ -1,10 +1,10 @@
 define freebsd::network::vlan (
+  $ensure    = 'present'
   $address   = '',  # CIDR Notation
   $v6address = '',  # Address only
   $prefixlen = '',  # Prefix length for v6 address
   $vlan,
   $dev,
-  $ensure = 'present'
 ){
 
   # Manage the configuration of a FreeBSD vLAN interface.

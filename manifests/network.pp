@@ -73,5 +73,4 @@ class freebsd::network (
       value  => "${ipv6_defaultrouter}",
     }
   }
-
 }

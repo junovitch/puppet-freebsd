@@ -1,8 +1,8 @@
 define freebsd::network::carp (
-  $vhid,
   $password = '',
   $advbase  = '',
   $advskew  = '',
+  $vhid,
   $address         # CIDR
 ) {
 

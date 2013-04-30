@@ -1,7 +1,7 @@
 define freebsd::network::lagg (
   $laggproto = 'lacp',
   $laggports = [],
-  $mtu = ''
+  $mtu       = ''
 ) {
 
   # This code creates the configuration for an LACP bundle interface.  It could
