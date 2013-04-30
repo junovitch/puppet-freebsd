@@ -1,4 +1,4 @@
-# Creates a kernel configuartion with an ident of $name.
+# Creates a kernel configuration with an identity of $name.
 define freebsd::kernel (
   $options = [],
   $devices = [],

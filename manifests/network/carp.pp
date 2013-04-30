@@ -40,5 +40,4 @@ define freebsd::network::carp (
     key   => "ifconfig_${name}",
     value => "${carp_string}"
   }
-
 }
