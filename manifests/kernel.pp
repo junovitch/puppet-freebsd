@@ -28,5 +28,4 @@ define freebsd::kernel (
     ensure => link,
     target => "${conf_dir}/${kernelname}",
   }
-
 }

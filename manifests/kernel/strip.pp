@@ -1,3 +1,4 @@
+# Copies the GENERIC kernel configuration and strips it if its identity.
 class freebsd::kernel::strip (
   $src_dir  = '/usr/src',
   $conf_dir = '/root/kernels',
