@@ -1,5 +1,5 @@
 define freebsd::network::vlan (
-  $ensure    = 'present'
+  $ensure    = 'present',
   $address   = '',  # CIDR Notation
   $v6address = '',  # Address only
   $prefixlen = '',  # Prefix length for v6 address
